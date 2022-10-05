@@ -1,0 +1,32 @@
+import random
+#--------------------------------------------------------------------------------
+def BattleSystem(monsterType, playerHealth):
+    if monsterType == "Ghoul":
+        monsterHealth = 20
+        print("A water- born ghoul appears! Bogged down with the look of the drowned, the ghoul extends it's freezing fingers towards your chest - it's looking for you heart...in very violent way!")
+    elif monsterType == "Siren":
+        monsterHealth = 40
+        print("The sweet song of a siren drifts from the inner cave, lulling you into a trance. You find yourself walking towards the source, but none of your limbs will respond!")
+
+    while monsterHealth>0 and playerHealth >0:
+        if monsterType == "Ghoul":
+            monsterAttack = random.randrange(20, 30)
+        elif monsterType == "Siren":
+            monsterAttack = random.randrange(10, 16)
+        print("The", monsterType, "attacks for", monsterAttack)
+        playerHealth = playerHealth-monsterAttack
+        print("Your health is now", playerHealth)
+
+        playerAttack = random.randrange(25,35)
+        print("You attack for", playerAttack)
+        monsterHealth = monsterHealth - playerAttack
+        print("The monsters health is now", monsterHealth)
+
+    if monsterHealth<0:
+      print("In an amazing feat of stength, courage, and skill, you defeat the terrifying monster")
+    else:
+      print("The monster proved to be a foe to strong for you to currently defeat. You return to the safe zone through your amulet's magical safe spell")
+    return playerHealth
+#--------------------------------------------------------------------------------
+    while playerHealth >0 and choice != quit:
+            BattleSystem(MonsterGen(), PlayerHealth)

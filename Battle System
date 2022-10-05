@@ -7,16 +7,26 @@ def BattleSystem(monsterType, playerHealth):
     elif monsterType == "Siren":
         monsterHealth = 40
         print("The sweet song of a siren drifts from the inner cave, lulling you into a trance. You find yourself walking towards the source, but none of your limbs will respond!")
+    elif monsterType == "Demi-Human Sea Creature":
+        monsterHealth = 85
+        print("A mysterious demi-human deep sea creature attacks you! It's sharp, gleaming fangs reach ferociously for your neck.")
+    elif monsterType == "Luminous eel":
+        monsterHealth = 5
+        print("A small glowing eel darts towards your exposed ankles with startling speed, fangs dripping with the same susbtance you observed on the stalactites.")
 
     while monsterHealth>0 and playerHealth >0:
         if monsterType == "Ghoul":
             monsterAttack = random.randrange(20, 30)
         elif monsterType == "Siren":
             monsterAttack = random.randrange(10, 16)
+        elif monsterType == "Demi-Human Sea Creature":
+            monsterAttack = random.randrange(50, 120)
+        elif monsterType == "Luminous Eel":
+            monsterAttack = random.randrange(0, 2)
         print("The", monsterType, "attacks for", monsterAttack)
         playerHealth = playerHealth-monsterAttack
         print("Your health is now", playerHealth)
-
+        
         playerAttack = random.randrange(25,35)
         print("You attack for", playerAttack)
         monsterHealth = monsterHealth - playerAttack
@@ -29,4 +39,4 @@ def BattleSystem(monsterType, playerHealth):
     return playerHealth
 #--------------------------------------------------------------------------------
     while playerHealth >0 and choice != quit:
-            BattleSystem(MonsterGen(), PlayerHealth)
+      BattleSystem(MonsterGen(), PlayerHealth)

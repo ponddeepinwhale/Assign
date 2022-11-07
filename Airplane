@@ -1,0 +1,25 @@
+class airplane:
+    #constructor function
+    def __init__(self, type, fuel, speed):
+        self.type = type
+        self.speed = speed
+        self.fuel = 33528
+        self.is_in_air = False
+    def print(self):
+        print("Hi, I'm a", self.type, "and I have", self.fuel, "gallons of fuel left")
+        print()
+    def fly(self):
+        print("The plane buzzes and heats up, loud engine noises accompanying it")
+        self.fuel-=1000
+        self.speed = 300
+        self.is_in_air = True
+    def land(self):
+        print("The plane shudders and slows down, preparing to land")
+        self.speed = 0
+        self.is_in_air = False
+#----------------------------------------------------------------
+#create(instantiate) an airplane!
+a1 = airplane("Boeing 797 Dreamliner", 33528, 560)
+a1.fly()
+a1.print()
+a1.land()

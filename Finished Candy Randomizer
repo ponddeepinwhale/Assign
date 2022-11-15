@@ -1,0 +1,31 @@
+import random
+Candy = [0, 0, 0, 0, 0, 0]
+def rand():
+    
+    Bars = random.randrange(1,5)
+    num = random.randrange(0, 100)
+    if num < 2:
+        Candy[5] +=1
+        print("You got 1 rock")
+    if num < 10:
+        print("You got", Bars, "Milky Ways!")
+        Candy[3] +=Bars
+    if num < 15:
+        print("you got", Bars, "Butterfingers!")
+        Candy[0] +=Bars
+    if num < 18:
+        print("You got", Bars, "Almond Joys! How unfortunate.")
+        Candy[4] +=Bars
+    if num < 20:
+        print("You got", Bars, "Hershey bars!")
+        Candy[1] +=Bars
+    if num < 35:
+        Candy[2] +=Bars
+        print("You got,", Bars, "peanut-butter cups!")
+        
+rand()
+rand()
+rand()
+rand()
+rand()
+print("You now possess", Candy, "in your pumpkin candy bag.")

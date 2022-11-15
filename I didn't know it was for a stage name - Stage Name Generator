@@ -1,0 +1,13 @@
+import random
+
+adj = ['vivid', 'mild', 'luminescent', 'repulsive', 'tiny', 'dull', 'bare', 'curvaceous', 'milky', 'feminine']
+noun = ['human', 'whale', 'bubble', 'radish', 'peach', 'pearl', 'wallet', 'beach', 'seeds', 'lizard']
+
+Exit = False
+
+while Exit == False:
+    print(adj[random.randrange(0,10)], noun[random.randrange(0,10)])
+    choice = input()
+    if choice == 'q' or choice == 'Q':
+        Exit = True
+    

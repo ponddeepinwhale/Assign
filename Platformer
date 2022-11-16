@@ -1,159 +1,101 @@
 import pygame
-pygame.init()  
-pygame.display.set_caption("Platformer")  # sets the window title
-screen = pygame.display.set_mode((800, 800))  # creates game screen
-screen.fill((0,0,0))
-clock = pygame.time.Clock() #set up clock
-gameover = False #variable to run our game loop
-
-#CONSTANTS
-LEFT=0
-RIGHT=1
-UP = 2
-DOWN = 3
-
-#load images
-image = pygame.image.load("art.png")
-
-#player variables
-xpos = 500 #xpos of player
-ypos = 200 #ypos of player
-vx = 0 #x velocity of player
-vy = 0 #y velocity of player
-keys = [False, False, False, False] #this list holds whether each key has been pressed
-isOnGround = False #this variable stops gravity from pulling you down more when on a platform
-
-#enemy variables
-#expos = 230
-#eypos = 630
-#timer = 0
-enemy1 = [200, 630, 0]
-enemy2 = [400, 780, 45]
-enemy3 = [600, 820, 50]
-
-def enemyMove(enemyInfo):
-    print(enemyInfo)
-    enemyInfo[2]+=1
-    if enemyInfo[2] <= 40:
-        enemyInfo[0]+=1
-    elif enemyInfo[2] <= 60:
-        enemyInfo[0]-= 1
-    else:
-         enemyInfo[2] = 0 #reset timer
-def enemyCollide(enemyInfo, playerX, playerY):
-    if playerX+20>enemyInfo[0]:
-       if playerX < enemyInfo[0]+20:
-           if playerY < enemyInfo[1]+20:
-               if playerY+20 > enemyInfo[1]:
-                    return True
-
-#SOUND--------------------------------------------------------------------
-jump = pygame.mixer.Sound('spin.wav')#load in sound effect
-music = pygame.mixer.music.load('city.mp3')#load in background music
-pygame.mixer.music.play(-1)#start background music
-#-------------------------------------------------------------------------
-
-while not gameover: #GAME LOOP############################################################
-    clock.tick(60) #FPS
+pygame.init()
+pygame.display.set_caption("link")
+screen = pygame.display.set_mode((800,800))
+screen.fill((0, 0, 0))
+clock = pygame.time.Clock()
+gameover = False
+Link = pygame.image.load('link.png')
+Link.set_colorkey((255, 0, 255))
+xpos = 200
+ypos = 170
+vx = 0
+keys = [False, False, False, False]
+#--------------------------------------------------
+frameWidth = 64
+frameHeight = 96
+RowNum = 0
+frameNum = 0
+ticker = 0
+#-----------#######--------------------###Gameloop
+while not gameover:
+    clock.tick(60)
     
-    #Input Section------------------------------------------------------------
-    for event in pygame.event.get(): #quit game if x is pressed in top corner
-       
+    for event in pygame.event.get():
         if event.type == pygame.QUIT:
             gameover = True
-      
-        if event.type == pygame.KEYDOWN: #keyboard input
-            if event.key == pygame.K_LEFT:
-                keys[LEFT]=True
-            elif event.key == pygame.K_RIGHT:
-                keys[RIGHT]=True
-            elif event.key == pygame.K_UP:
-                keys[UP]=True
-            
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT:
-                keys[LEFT]=False
-            elif event.key == pygame.K_RIGHT:
-                keys[RIGHT]=False
-            elif event.key == pygame.K_UP:
-                keys[UP]=False
-          
-    #physics section--------------------------------------------------------------------
-    #LEFT MOVEMENT
-    if keys[LEFT]==True:
-        vx=-3
-        direction = LEFT
-    elif keys[RIGHT]==True:
-        vx=3
-        direction = RIGHT
 
-    #turn off velocity
+#---------------------------Movement
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                keys[0] = True
+            elif event.key == pygame.K_RIGHT:
+                keys[1] = True
+            elif event.key == pygame.K_DOWN:
+                keys[2] = True
+            elif event.key == pygame.K_UP:
+                keys[3] = True
+        
+        elif event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT:
+                keys[0] = False
+            elif event.key == pygame.K_RIGHT:
+                keys[1] = False
+            elif event.key == pygame.K_DOWN:
+                keys[2] = False
+            elif event.key == pygame.K_UP:
+                keys[3] = False
+            
+            
+#LEFT---------------------
+    if keys[0] == True:
+        vx=-3
+        direction = 1
+#RIGHT--------------------------
+    elif keys[1] == True:
+        vx += 3
+       
+#UP---------------------------    
+    elif keys[3] == True:
+        vx +=4
+   
+#DOWN-------------------------        
+    elif keys[2] == True:
+        vx =-4
+       
+#turn off velocity
     else:
         vx = 0
-        #JUMPING
-    if keys[UP] == True and isOnGround == True: #only jump when on the ground
-        vy = -8
-        isOnGround = False
-        direction = UP
-        pygame.mixer.Sound.play(jump)
     
     
-    enemyMove(enemy1)
-    enemyMove(enemy2)
-    enemyMove(enemy3)
+    
+#UPDATE POSITION BASED ON VELOCITY
+    xpos+=vx
+    ypos-=vx
+
+
+
+#-------------------------ANIMATION
+    if vx < 0:
+        ticker+=1
+        if ticker%10==0:
+            frameNum+=1
+        if frameNum>7:
+            frameNum = 0
+    
+    elif vx < 0:
+        ticker+=1
+        if ticker%10==0:
+            frameNum+=1
+        if frameNum>7:
+            frameNum = 0
+    el
+
+
+#Render--------------------------------
+    screen.fill((0, 0, 0))
+    screen.blit(Link, (xpos, ypos), (frameWidth*frameNum, RowNum*frameHeight, frameWidth, frameHeight))
+    pygame.display.flip()
         
-    enemyCollide(enemy1, xpos, ypos)
-    enemyCollide(enemy2, xpos, ypos)
-    #COLLISION
-    if xpos>100 and xpos<200 and ypos+40 >750 and ypos+40 <770:
-        ypos = 750-40
-        isOnGround = True
-        vy = 0
-    elif xpos>200 and xpos<300 and ypos+40 >650 and ypos+40 <670:
-        ypos = 650-40
-        isOnGround = True
-        vy = 0
-    else:
-        isOnGround = False
-
-
-    
-    #stop falling if on bottom of game screen
-    if ypos > 760:
-        isOnGround = True
-        vy = 0
-        ypos = 760
-    
-    #gravity
-    if isOnGround == False:
-        vy+=.2 #notice this grows over time, aka ACCELERATION
-    
-
-    #update player position
-    xpos+=vx 
-    ypos+=vy
-    
-  
-    # RENDER Section--------------------------------------------------------------------------------    
-    screen.fill((0, 0, 0)) #wipe screen so it doesn't smear
-  
-    screen.blit(image, (0,0)) #draw background image
-  
-    #draw player  
-    pygame.draw.rect(screen, (100, 200, 100), (xpos, ypos, 20, 40))
-    #draw enemy
-    pygame.draw.rect(screen, (255, 255, 255), (enemy1[0], enemy1[1], 20, 20))
-    pygame.draw.rect(screen, (255, 255, 255), (enemy2[0], enemy2[1], 20, 20))
-    pygame.draw.rect(screen, (255, 255, 255), (enemy3[0], enemy3[1], 20, 20))
-    #first platform
-    pygame.draw.rect(screen, (200, 0, 100), (100, 750, 100, 20))
-    
-    #second platform
-    pygame.draw.rect(screen, (100, 0, 200), (200, 650, 100, 20))
-    
-    pygame.draw.rect(screen, (100, 200, 100), (xpos, ypos, 20, 40)) #draw player
-    
-    pygame.display.flip()#this flips the buffer (memory) where stuff has been "drawn" to the actual screen
-    
-#end game loop------------------------------------------------------------------------------
+#------------------END GAME LOOP-------------------
 pygame.quit()

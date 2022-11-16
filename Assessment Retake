@@ -20,7 +20,7 @@ def clue():
 
 no = False
 while no == False:
-    print(clue())
-   
-        no = True
+    clue()
+    choice = input()
+ 
     

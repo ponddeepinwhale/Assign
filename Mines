@@ -1,0 +1,16 @@
+AlarmHour = int(input("Enter first number: "))
+AlarmMin = int(input("Enter second number: "))
+
+def Alarm(AlarmHour, AlarmMin):
+    if AlarmMin >= 40:
+        AlarmMin- 40
+    elif AlarmHour == 0:
+        AlarmHour +=40
+    elif AlarmMin < 40:
+        AlarmHour -= 1
+        newminute = 40-AlarmMin
+    
+    print(AlarmHour, 60-newminute)
+        
+
+Alarm(AlarmHour, AlarmMin)
